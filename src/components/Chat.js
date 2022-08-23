@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../index";
 import {
@@ -62,7 +62,6 @@ function Chat() {
             style={{
                 display: "flex",
                 flexDirection: "column",
-                // position: "relative",
             }}
         >
             <Grid
@@ -92,12 +91,18 @@ function Chat() {
                                     <img src={message.photoURL} alt="" />
                                     <p>{message.text}</p>
                                 </div>
-                                <Button
-                                    variant={"outlined"}
-                                    onClick={() => removeMessages(message.id)}
-                                >
-                                    Удалить
-                                </Button>
+                                {message.uid === auth.currentUser.uid ? (
+                                    <Button
+                                        variant={"outlined"}
+                                        onClick={() =>
+                                            removeMessages(message.id)
+                                        }
+                                    >
+                                        Удалить
+                                    </Button>
+                                ) : (
+                                    ""
+                                )}
                             </>
                         )}
                     </div>
@@ -105,15 +110,12 @@ function Chat() {
             </Grid>
             <div>
                 <form onSubmit={sendMessage}>
-                    <div className="sendMessage">
-                        <TextField
+                    <div className="send-message">
+                        <input
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
                             placeholder="Начать ввод..."
-                            style={{
-                                padding: 10,
-                                width: "80%",
-                            }}
+                            className="input"
                         />
                         <Button variant="contained" type="submit">
                             Отправить

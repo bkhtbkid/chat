@@ -1,11 +1,11 @@
 import "./App.css";
-import Menu from "./components/Menu";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useContext } from "react";
 import { Context } from "./index";
 import SignIn from "./components/SignIn";
 import SignOut from "./components/SignOut";
 import Chat from "./components/Chat";
+import Instruction from "./components/Instruction";
 
 function App() {
     const { auth } = useContext(Context);
@@ -19,7 +19,10 @@ function App() {
                     <Chat />
                 </>
             ) : (
-                <SignIn />
+                <>
+                    <SignIn />
+                    <Instruction />
+                </>
             )}
         </>
     );
